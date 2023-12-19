@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Note = ({ id, title, content, color, onDelete, onEdit }) => {
+const Note = ({ id, title, content, color, onDelete, onEdit, searchTerm }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedNote, setEditedNote] = useState({ title, content, color });
 
@@ -13,41 +13,22 @@ const Note = ({ id, title, content, color, onDelete, onEdit }) => {
     setIsEditing(false);
   };
 
+  const handleDelete = () => {
+    // Ask for confirmation before deleting
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this note?"
+    );
+    if (confirmDelete) {
+      onDelete(id);
+    }
+  };
+
   return (
     <div className="note" style={{ backgroundColor: color }}>
       <div>
         {isEditing ? (
           <div style={{ marginBottom: "20px" }}>
-            <input
-              type="text"
-              placeholder="Title"
-              value={editedNote.title}
-              onChange={(e) =>
-                setEditedNote({ ...editedNote, title: e.target.value })
-              }
-              style={{ marginRight: "10px" }}
-            />
-            <input
-              placeholder="text"
-              value={editedNote.content}
-              onChange={(e) =>
-                setEditedNote({ ...editedNote, content: e.target.value })
-              }
-              style={{ marginRight: "10px" }}
-            />
-            <select
-              value={editedNote.color}
-              onChange={(e) =>
-                setEditedNote({ ...editedNote, color: e.target.value })
-              }
-              style={{ marginRight: "10px" }}
-            >
-              <option value="lightyellow">Light Yellow</option>
-              <option value="lightgreen">Light Green</option>
-              <option value="lightpink">Light Pink</option>
-              <option value="Violet">Violet</option>
-              {/* Add more color options as needed */}
-            </select>
+            {/* ... (unchanged) */}
             <button
               onClick={handleSave}
               style={{
@@ -67,7 +48,7 @@ const Note = ({ id, title, content, color, onDelete, onEdit }) => {
             <h3>{title}</h3>
             <p>{content}</p>
             <button
-              onClick={() => onDelete(id)}
+              onClick={handleDelete}
               style={{
                 backgroundColor: "red",
                 color: "white",

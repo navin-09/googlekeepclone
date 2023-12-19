@@ -4,23 +4,32 @@ import NoteList from "./NoteList";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [newNote, setNewNote] = useState({
     title: "",
     content: "",
     color: "yellow",
   });
 
+  // Inside the App component
   useEffect(() => {
     // Fetch notes from the backend API
     axios
       .get("http://localhost:3001/api/notes")
       .then((response) => {
-        setNotes(response.data);
+        // Filter notes based on the search term
+        const filteredNotes = response.data.filter(
+          (note) =>
+            note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            note.content.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setNotes(filteredNotes);
       })
       .catch((error) => {
         console.error("Error fetching notes:", error);
       });
-  }, []);
+  }, [searchTerm]);
 
   const handleAddNote = () => {
     // Implement logic to add a new note
@@ -64,6 +73,13 @@ const App = () => {
   return (
     <div className="app">
       <h1 style={{ marginBottom: "20px" }}>Google Keep Clone</h1>
+      <input
+        type="text"
+        placeholder="Search"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{ marginRight: "10px" }}
+      />
       <div style={{ marginBottom: "20px" }}>
         <input
           type="text"
@@ -106,6 +122,7 @@ const App = () => {
         notes={notes}
         onDelete={handleDeleteNote}
         onEdit={handleEditNote}
+        searchTerm={searchTerm}
       />
     </div>
   );

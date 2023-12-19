@@ -2,7 +2,7 @@
 import React from "react";
 import Note from "./Note";
 
-const NoteList = ({ notes, onDelete, onEdit }) => {
+const NoteList = ({ notes, onDelete, onEdit, searchTerm }) => {
   return (
     <div className="note-list">
       {notes.map((note) => (
@@ -14,6 +14,7 @@ const NoteList = ({ notes, onDelete, onEdit }) => {
           color={note.color}
           onDelete={onDelete}
           onEdit={onEdit}
+          searchTerm={searchTerm}
         />
       ))}
     </div>
