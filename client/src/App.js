@@ -5,20 +5,16 @@ import NoteList from "./NoteList";
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
   const [newNote, setNewNote] = useState({
     title: "",
     content: "",
     color: "yellow",
   });
 
-  // Inside the App component
   useEffect(() => {
-    // Fetch notes from the backend API
     axios
       .get("http://localhost:3001/api/notes")
       .then((response) => {
-        // Filter notes based on the search term
         const filteredNotes = response.data.filter(
           (note) =>
             note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -32,7 +28,6 @@ const App = () => {
   }, [searchTerm]);
 
   const handleAddNote = () => {
-    // Implement logic to add a new note
     axios
       .post("http://localhost:3001/api/notes", newNote)
       .then((response) => {
@@ -45,7 +40,6 @@ const App = () => {
   };
 
   const handleDeleteNote = (id) => {
-    // Implement logic to delete a note
     axios
       .delete(`http://localhost:3001/api/notes/${id}`)
       .then(() => {
@@ -57,7 +51,6 @@ const App = () => {
   };
 
   const handleEditNote = (id, updatedNote) => {
-    // Implement logic to edit a note
     axios
       .put(`http://localhost:3001/api/notes/${id}`, updatedNote)
       .then((response) => {
@@ -73,13 +66,18 @@ const App = () => {
   return (
     <div className="app">
       <h1 style={{ marginBottom: "20px" }}>Google Keep Clone</h1>
-      <input
-        type="text"
-        placeholder="Search"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ marginRight: "10px" }}
-      />
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <input
+          type="text"
+          placeholder="Search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ marginRight: "10px" }}
+        />
+        <span role="img" aria-label="Search Icon">
+          🔍
+        </span>
+      </div>
       <div style={{ marginBottom: "20px" }}>
         <input
           type="text"
