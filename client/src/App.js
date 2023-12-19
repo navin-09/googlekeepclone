@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NoteList from "./NoteList";
@@ -64,28 +63,44 @@ const App = () => {
 
   return (
     <div className="app">
-      <h1>Google Keep Clone</h1>
-      <div>
+      <h1 style={{ marginBottom: "20px" }}>Google Keep Clone</h1>
+      <div style={{ marginBottom: "20px" }}>
         <input
           type="text"
           placeholder="Title"
           value={newNote.title}
           onChange={(e) => setNewNote({ ...newNote, title: e.target.value })}
+          style={{ marginRight: "10px" }}
         />
-        <textarea
+        <input
+          type="text"
           placeholder="Content"
           value={newNote.content}
           onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
+          style={{ marginRight: "10px" }}
         />
         <select
           value={newNote.color}
           onChange={(e) => setNewNote({ ...newNote, color: e.target.value })}
+          style={{ marginRight: "10px" }}
         >
-          <option value="yellow">Yellow</option>
-          <option value="blue">Blue</option>
-          {/* Add more color options as needed */}
+          <option value="lightyellow">Light Yellow</option>
+          <option value="lightgreen">Light Green</option>
+          <option value="lightpink">Light Pink</option>
+          <option value="Violet">Violet</option>
         </select>
-        <button onClick={handleAddNote}>Add Note</button>
+        <button
+          onClick={handleAddNote}
+          style={{
+            backgroundColor: "green",
+            color: "white",
+            border: "none",
+            padding: "10px 20px",
+            borderRadius: "5px",
+          }}
+        >
+          Add Note
+        </button>
       </div>
       <NoteList
         notes={notes}
