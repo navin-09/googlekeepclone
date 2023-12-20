@@ -15,7 +15,7 @@ Ensure you have the following installed:
 
 ### Installation
 
-1. git clone https://github.com/your-username/googlekeepclone.git
+1. clone the repo
 2. cd googlekeepclone/server
 3. npm install
 4. (in knexfile file keep your postgres connection details here i have given my sample creds for reference)
