@@ -31,7 +31,8 @@ const App = () => {
     axios
       .post("http://localhost:3001/api/notes", newNote)
       .then((response) => {
-        setNotes([...notes, response.data]);
+        // Update state with the latest note
+        setNotes((prevNotes) => [response.data, ...prevNotes]);
         setNewNote({ title: "", content: "", color: "yellow" });
       })
       .catch((error) => {
